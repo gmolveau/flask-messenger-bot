@@ -1,0 +1,17 @@
+{
+  "name": "Boilerplate/Skeleton basic Flask App Facebook Messenger Bot",
+  "description": "A boilerplate/skeleton for a Flask based facebook messenger bot, which can easily be deployed to Heroku.",
+  "image": "heroku/python",
+  "repository": "https://github.com/gmolveau/flask-messenger-bot",
+  "keywords": ["python", "flask", "facebook", "messenger" ],
+  "addons": [ ],
+  "env": {
+    "VERIFY_TOKEN": {
+      "description": "The VERIFY_TOKEN used by FB messenger",
+      "generator": "secret"
+    },
+    "ACCESS_TOKEN": {
+      "description": "The ACCESS_TOKEN used to post messages on FB messenger"
+    }
+  }
+}
