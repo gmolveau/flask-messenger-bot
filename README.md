@@ -19,15 +19,17 @@ First of all you need a facebook account, logged in.
 
 3. Go back to your app and click on "configure" on the messenger's tab.
 
-4. In the "token generation" section, select the page you create earlier to generate an ACCESS_TOKEN. Keep it somewhere, as it will be used as an environment variable later. (it's a big string like : EAACrKioFH4oBAM89bjAPrFmY[...])
+4. In the "token generation" section, select the page you create earlier to generate an ACCESS_TOKEN. Keep it somewhere, as it will be used as an environment variable later.
+
+	(it's a big string like : EAACrKioFH4oBAM89bjAPrFmY[...])
 
 5. Create a VERIFY_TOKEN [with uuid](https://www.uuidgenerator.net/version4), keep it somewhere, it will be used as an environment variable later. (for example : b030bde8-bd27-419d-a0b3-[...])
 
 6. Deploy your app. You will need a HTTPS url. Heroku provides free plans to host an app, and it should work out of the box.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+	[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-You can choose a more suitable name if you want than the generated one by heroku.
+	> You can choose a more suitable name if you want than the generated one by heroku.
 
 7. Click 'Setup Webhooks' back in the Facebook Developers page (still in the Messenger tab). Paste the callback URL wihch should be something like `https://your_super_flask_app.herokuapp.com/webhook`, and paste your VERIFY_TOKEN created earlier.
 
