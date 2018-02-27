@@ -9,9 +9,11 @@ pip3 install -r requirements.txt
 gunicorn app:app
 ```
 
+[great official facebook tutorial](https://developers.facebook.com/docs/messenger-platform/getting-started/quick-start)
+
 ## How to create a (private) facebook messenger bot
 
-First of all you need a facebook account, logged in.
+First of all you need a facebook account, logged in, with developer mode [activated](https://developers.facebook.com/).
 
 1. Create a new FB App [here](https://developers.facebook.com/quickstarts/?platform=web), just type in the name of your app (choose wisely, difficult to change afterwards), your contact mail and a captcha. Then click on "pass everything" on the top right.
 
@@ -41,10 +43,12 @@ Check at least the 'messages' box in Subscription Fields, others are optional fo
 
 ## How to make your messenger bot public (submit your app)
 
-
 1. You will need :
 	* a 1024x1024 png icon for your app
 	* a facebook cover (optional)
 	* a facebook profile picture (optional)
 	* a on-hand recorded video of the bot in action
-2. todo [...]
+
+2. On your app page on developers.facebook.com, at the webhooks section, select the page to subscribe your webhook to the page events.
+
+3. At the bottom of the page, section "app controle for messenger", `add` the `pages_messaging`

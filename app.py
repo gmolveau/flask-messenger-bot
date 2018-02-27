@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, Response
+from flask import Flask, request, Response
 import requests, json, random, os
 app = Flask(__name__)
 
@@ -16,10 +16,10 @@ def webhook_verify():
 
 @app.route('/webhook', methods=['POST'])
 def webhook_action():
-    try:
-        data = json.loads(request.data)
-        user_message = data['entry'][0]['messaging'][0]['message']['text']
-        user_id = data['entry'][0]['messaging'][0]['sender']['id']
+    data = json.loads(request.data)
+    for entry in data['entry']:
+        user_message = entry['messaging'][0]['message']['text']
+        user_id = entry['messaging'][0]['sender']['id']
         response = {
             'recipient': {'id': user_id},
             'message': {}
@@ -27,29 +27,24 @@ def webhook_action():
         response['message']['text'] = handle_message(user_id, user_message)
         r = requests.post(
             'https://graph.facebook.com/v2.6/me/messages/?access_token=' + access_token, json=response)
-    except Exception as e:
-        print("bug: ",e)
+    return Response(response="EVENT RECEIVED",status=200)
 
 @app.route('/webhook_dev', methods=['POST'])
 def webhook_dev():
     # custom route for local development
-    try:
-        data = json.loads(request.data)
-        user_message = data['entry'][0]['messaging'][0]['message']['text']
-        user_id = data['entry'][0]['messaging'][0]['sender']['id']
-        response = {
-            'recipient': {'id': user_id},
-            'message': {}
-        }
-        response['message']['text'] = handle_message(user_id, user_message)
-        r = Response(
-            response=json.dumps(response),
-            status=200,
-            mimetype='application/json'
-        )
-        return r
-    except Exception as e:
-        print("bug: ",e)
+    data = json.loads(request.data)
+    user_message = data['entry']['messaging'][0]['message']['text']
+    user_id = data['entry']['messaging'][0]['sender']['id']
+    response = {
+        'recipient': {'id': user_id},
+        'message': {}
+    }
+    response['message']['text'] = handle_message(user_id, user_message)
+    return Response(
+        response=json.dumps(response),
+        status=200,
+        mimetype='application/json'
+    )
 
 def handle_message(id, message):
     # DO SOMETHING with the user_message ... ¯\_(ツ)_/¯
@@ -60,10 +55,8 @@ def privacy():
     # needed route if you need to make your bot public
     return "This facebook messenger bot's only purpose is to [...]. That's all. We don't use it in any other way."
 
-
 @app.route('/', methods=['GET'])
 def index():
-    # default route
     return "Hello there, I'm a facebook messenger bot."
 
 
