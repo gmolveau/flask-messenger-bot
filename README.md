@@ -6,12 +6,22 @@ cd flask-messenger-bot
 virtualenv venv -p python3
 source venv/bin/activate
 pip3 install -r requirements.txt
+
+# on unix
 gunicorn app:app
+
+# on windows
+python3 app.py
 ```
 
 test your dev webhook with
 ```bash
+# unix
 pip3 install httpie
+
+# osx
+brew install httpie
+
 http POST localhost:8000/webhook_dev entry:='[{"messaging":[{"message":{"text":"test sending bot message"},"sender":{"id":"1234"}}]}]'
 ```
 

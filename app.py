@@ -16,7 +16,7 @@ def webhook_verify():
 
 @app.route('/webhook', methods=['POST'])
 def webhook_action():
-    data = json.loads(request.data)
+    data = json.loads(request.data.decode('utf-8'))
     for entry in data['entry']:
         user_message = entry['messaging'][0]['message']['text']
         user_id = entry['messaging'][0]['sender']['id']
@@ -32,7 +32,7 @@ def webhook_action():
 @app.route('/webhook_dev', methods=['POST'])
 def webhook_dev():
     # custom route for local development
-    data = json.loads(request.data)
+    data = json.loads(request.data.decode('utf-8'))
     user_message = data['entry'][0]['messaging'][0]['message']['text']
     user_id = data['entry'][0]['messaging'][0]['sender']['id']
     response = {
@@ -61,10 +61,4 @@ def index():
 
 
 if __name__ == '__main__':
-    if verify_token is None:
-        print("VERIFY_TOKEN env variable is not set ...")
-        os._exit(1)
-    if access_token is None:
-        print("ACCESS_TOKEN env variable is not set ...")
-        os._exit(1)
     app.run(debug=True, host='0.0.0.0')
