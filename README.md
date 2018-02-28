@@ -9,6 +9,12 @@ pip3 install -r requirements.txt
 gunicorn app:app
 ```
 
+test your dev webhook with
+```bash
+pip3 install httpie
+http POST localhost:8000/webhook_dev entry:='[{"messaging":[{"message":{"text":"test sending bot message"},"sender":{"id":"1234"}}]}]'
+```
+
 [great official facebook tutorial](https://developers.facebook.com/docs/messenger-platform/getting-started/quick-start)
 
 ## How to create a (private) facebook messenger bot

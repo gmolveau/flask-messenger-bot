@@ -33,8 +33,8 @@ def webhook_action():
 def webhook_dev():
     # custom route for local development
     data = json.loads(request.data)
-    user_message = data['entry']['messaging'][0]['message']['text']
-    user_id = data['entry']['messaging'][0]['sender']['id']
+    user_message = data['entry'][0]['messaging'][0]['message']['text']
+    user_id = data['entry'][0]['messaging'][0]['sender']['id']
     response = {
         'recipient': {'id': user_id},
         'message': {}
