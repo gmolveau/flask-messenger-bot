@@ -37,18 +37,17 @@ def webhook_dev():
     user_id = data['entry'][0]['messaging'][0]['sender']['id']
     response = {
         'recipient': {'id': user_id},
-        'message': {}
+        'message': {'text': handle_message(user_id, user_message)}
     }
-    response['message']['text'] = handle_message(user_id, user_message)
     return Response(
         response=json.dumps(response),
         status=200,
         mimetype='application/json'
     )
 
-def handle_message(id, message):
+def handle_message(user_id, user_message):
     # DO SOMETHING with the user_message ... ¯\_(ツ)_/¯
-    return "Hello World ! You just sent me : " + message
+    return "Hello "+user_id+" ! You just sent me : " + user_message
 
 @app.route('/privacy', methods=['GET'])
 def privacy():
@@ -58,7 +57,6 @@ def privacy():
 @app.route('/', methods=['GET'])
 def index():
     return "Hello there, I'm a facebook messenger bot."
-
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
